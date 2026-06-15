@@ -1,0 +1,737 @@
+# ============================================================
+# diagram.yaml — ClickHouse data lineage source of truth
+# ============================================================
+# This file is the SOURCE OF TRUTH for the lineage diagram.
+# A daily Jenkins job (clickhouse_diagram.py) appends newly-created
+# tables and flags dropped ones; humans curate everything else.
+#
+# HOW TO EDIT (humans):
+#   1. Move tables out of the 'review' layer into bronze/silver/gold
+#   2. Set the correct icon and fill in docs_url / etl_url
+#   3. Delete rows of dropped tables once they are truly gone
+#   4. Add/edit relationships in the `edges` section
+#   (HTML is regenerated automatically by the daily job; to rebuild
+#    locally run: python generate_diagram.py)
+#
+# FIELD REFERENCE:
+#   id          — unique identifier (no spaces), used in edges
+#   schema      — ClickHouse schema name
+#   name        — ClickHouse table name
+#   layer       — bronze | silver | gold | review
+#   icon        — none | clock | flash | created | dropped
+#                   none    = no icon (default if omitted)
+#                   clock   = scheduled ETL
+#                   flash   = realtime loaded data
+#                   created = newly discovered, awaiting triage (auto-set)
+#                   dropped = dropped in ClickHouse, kept for review (auto-set)
+#   is_mview    — true | false  (materialized view — shown as an MV badge)
+#   docs_url    — Confluence page URL, or "insert_link_here" if not ready yet
+#   etl_url     — GitLab script URL,   or "insert_link_here" if not ready yet
+# ============================================================
+
+tables:
+
+  # ── analytics schema ─────────────────────────────────────
+  - id: a_business_account_list
+    schema: analytics
+    name: business_account_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_city_list
+    schema: analytics
+    name: city_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_client_balance_list
+    schema: analytics
+    name: client_balance_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_client_bonus_log
+    schema: analytics
+    name: client_bonus_log
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_client_bonuses_list
+    schema: analytics
+    name: client_bonuses_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_client_list
+    schema: analytics
+    name: client_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/194412546/client_list+CH
+    etl_url: insert_link_here
+
+  - id: a_client_promo_codes_active
+    schema: analytics
+    name: client_promo_codes_active
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/701661188/client_promo_codes_active
+    etl_url: insert_link_here
+
+  - id: a_depot_list
+    schema: analytics
+    name: depot_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_device_list
+    schema: analytics
+    name: device_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_driver_activity_log
+    schema: analytics
+    name: driver_activity_log
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/222330882/driver_activity_log+CH
+    etl_url: insert_link_here
+
+  - id: a_driver_activity_log_archive1
+    schema: analytics
+    name: driver_activity_log_archive1
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_driver_balance_log
+    schema: analytics
+    name: driver_balance_log
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/17695014/driver_balance_log+CH
+    etl_url: insert_link_here
+
+  - id: a_driver_list
+    schema: analytics
+    name: driver_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/18383060/driver_list
+    etl_url: insert_link_here
+
+  - id: a_estimate_log
+    schema: analytics
+    name: estimate_log
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/98107408/estimate_log.
+    etl_url: insert_link_here
+
+  - id: a_estimate_rival
+    schema: analytics
+    name: estimate_rival
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_filter_list
+    schema: analytics
+    name: filter_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_matching_log
+    schema: analytics
+    name: matching_log
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/18022661/matching_log
+    etl_url: insert_link_here
+
+  - id: a_order_chat_message
+    schema: analytics
+    name: order_chat_message
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/17891617/order_chat_message+CH
+    etl_url: insert_link_here
+
+  - id: a_order_list
+    schema: analytics
+    name: order_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/17924335/order_list
+    etl_url: insert_link_here
+
+  - id: a_orders
+    schema: analytics
+    name: orders
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_polygon_list
+    schema: analytics
+    name: polygon_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://confluence.example.com/wiki/display/DATA/polygon_list
+    etl_url: https://gitlab.example.com/etl/analytics/polygon_list.py
+
+  - id: a_sms_log
+    schema: analytics
+    name: sms_log
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_surge_log
+    schema: analytics
+    name: surge_log
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/17695005/surge_log
+    etl_url: insert_link_here
+
+  - id: a_surge_log_v2
+    schema: analytics
+    name: surge_log_v2
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_surge_params_v2
+    schema: analytics
+    name: surge_params_v2
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: a_transaction_list
+    schema: analytics
+    name: transaction_list
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  # ── analytics_aggregated schema ───────────────────────────
+  - id: aa_driver_activity
+    schema: analytics_aggregated
+    name: driver_activity
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity
+
+  - id: aa_driver_activity_1m
+    schema: analytics_aggregated
+    name: driver_activity_1m
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_driver_activity_live
+    schema: analytics_aggregated
+    name: driver_activity_live
+    layer: silver
+    icon: flash
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity_live.py
+
+  - id: aa_driver_activity_with_filters
+    schema: analytics_aggregated
+    name: driver_activity_with_filters
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity_with_filters.py
+
+  - id: aa_driver_order_stat
+    schema: analytics_aggregated
+    name: driver_order_stat
+    layer: silver
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_order_stat.py
+
+  - id: aa_driver_order_stat_archive_20251227
+    schema: analytics_aggregated
+    name: driver_order_stat_archive_20251227
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_estimates_intents_bronze
+    schema: analytics_aggregated
+    name: estimates_intents_bronze
+    layer: bronze
+    icon: flash
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_estimates_intents_bronze.py
+
+  - id: aa_history_1y_orders_snapshot_30m
+    schema: analytics_aggregated
+    name: history_1y_orders_snapshot_30m
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_intent_list
+    schema: analytics_aggregated
+    name: intent_list
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_intent_list.py
+
+  - id: aa_intent_list_archive_20251226
+    schema: analytics_aggregated
+    name: intent_list_archive_20251226
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_intent_list_live
+    schema: analytics_aggregated
+    name: intent_list_live
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_intent_list_live.py
+
+  - id: aa_intent_list_silver
+    schema: analytics_aggregated
+    name: intent_list_silver
+    layer: silver
+    icon: flash
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_intent_list_silver.py
+
+  - id: aa_intent_stats_gold
+    schema: analytics_aggregated
+    name: intent_stats_gold
+    layer: gold
+    icon: flash
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_intent_stats_gold.py
+
+  - id: aa_operations_client_churn_28d
+    schema: analytics_aggregated
+    name: operations_client_churn_28d
+    layer: gold
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_operations_client_churn_28d.py
+
+  - id: aa_operations_driver_churn_28d
+    schema: analytics_aggregated
+    name: operations_driver_churn_28d
+    layer: gold
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_operations_driver_churn_28d.py
+
+  - id: aa_operations_orders_metrics
+    schema: analytics_aggregated
+    name: operations_orders_metrics
+    layer: gold
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_operations_orders_metrics.py
+
+  - id: aa_order_flow_1m_agg
+    schema: analytics_aggregated
+    name: order_flow_1m_agg
+    layer: review
+    icon: none
+    is_mview: true
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_order_last_state
+    schema: analytics_aggregated
+    name: order_last_state
+    layer: silver
+    icon: flash
+    is_mview: true
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_order_list_silver
+    schema: analytics_aggregated
+    name: order_list_silver
+    layer: silver
+    icon: flash
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://gitlab.example.com/etl/analytics_aggregated/order_list_silver.sql
+
+  - id: aa_order_stats_gold
+    schema: analytics_aggregated
+    name: order_stats_gold
+    layer: gold
+    icon: flash
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://gitlab.example.com/etl/analytics_aggregated/order_stats_gold.sql
+
+  - id: aa_quick_cities_filter
+    schema: analytics_aggregated
+    name: quick_cities_filter
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/407207940/quick_cities_filter+CH
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_quick_cities_filter.py
+
+  - id: aa_real_request_log
+    schema: analytics_aggregated
+    name: real_request_log
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_real_request_metrics_1m
+    schema: analytics_aggregated
+    name: real_request_metrics_1m
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_soft_matching
+    schema: analytics_aggregated
+    name: soft_matching
+    layer: gold
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_soft_matching.py
+
+  - id: aa_soft_matching_archive_20260126
+    schema: analytics_aggregated
+    name: soft_matching_archive_20260126
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_stock_snapshot_1m
+    schema: analytics_aggregated
+    name: stock_snapshot_1m
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_surge_clients
+    schema: analytics_aggregated
+    name: surge_clients
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_surge_clients.py
+
+  - id: aa_surge_drivers
+    schema: analytics_aggregated
+    name: surge_drivers
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_surge_drivers.py
+
+  - id: aa_test_driver_activity_1m
+    schema: analytics_aggregated
+    name: test_driver_activity_1m
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_test_driver_activity_1m_hex
+    schema: analytics_aggregated
+    name: test_driver_activity_1m_hex
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_test_driver_activity_1m_hex2
+    schema: analytics_aggregated
+    name: test_driver_activity_1m_hex2
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: aa_tmp_moon_driver_balance_log
+    schema: analytics_aggregated
+    name: tmp_moon_driver_balance_log
+    layer: review
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_driver_vehicle
+    schema: analytics
+    name: driver_vehicle
+    layer: bronze
+    icon: none
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_driver_activity_live_extra
+    schema: analytics_aggregated
+    name: driver_activity_live_extra
+    layer: bronze
+    icon: flash
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity_live_extra
+
+  - id: analytics_aggregated_kpi_table_client
+    schema: analytics_aggregated
+    name: kpi_table_client
+    layer: gold
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_kpi_table_client.py
+
+  - id: analytics_aggregated_kpi_table_driver
+    schema: analytics_aggregated
+    name: kpi_table_driver
+    layer: gold
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_kpi_table_driver.py
+
+  - id: analytics_aggregated_partner_list
+    schema: analytics_aggregated
+    name: partner_list
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_partner_list.py
+
+  - id: analytics_aggregated_sales_orders_test
+    schema: analytics_aggregated
+    name: sales_orders_test
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_moon_driver_balance_log2
+    schema: analytics_aggregated
+    name: tmp_moon_driver_balance_log2
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_orders_accept_driver_distance
+    schema: analytics_aggregated
+    name: tmp_orders_accept_driver_distance
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_action
+    schema: mysql_replica
+    name: client_retention_action
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_campaign
+    schema: mysql_replica
+    name: client_retention_campaign
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_order_promocode_list
+    schema: mysql_replica
+    name: client_retention_order_promocode_list
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_promocode_list
+    schema: mysql_replica
+    name: client_retention_promocode_list
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_sales_orders
+    schema: mysql_replica
+    name: sales_orders
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_audience
+    schema: mysql_replica
+    name: client_retention_audience
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_campaign_history
+    schema: mysql_replica
+    name: client_retention_campaign_history
+    layer: bronze
+    icon: clock
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+
+# ============================================================
+# EDGES — lineage relationships
+# ============================================================
+
+
+  - id: analytics_aggregated_intent_list_silver222
+    schema: analytics_aggregated
+    name: intent_list_silver222
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+edges:
+# order_list relations
+  - from: a_order_list
+    to: aa_order_list_silver
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_polygon_list
+    to: aa_order_list_silver
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: aa_order_list_silver
+    to: aa_order_stats_gold
+    type: single
+    etl_script: analytics_aggregated/order_stats_gold.sql
+
+# intent_list relations
+  - from: aa_estimates_intents_bronze
+    to: aa_intent_list_silver
+    type: single
+    etl_script: analytics_aggregated/intent_list_silver.sql
+
+  - from: aa_intent_list_silver
+    to: aa_intent_stats_gold
+    type: single
+    etl_script: analytics_aggregated/intent_stats_gold.sql
+
+# ============================================================
+# NEW ROWS BELOW
+# ============================================================

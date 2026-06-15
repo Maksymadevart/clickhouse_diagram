@@ -2,12 +2,12 @@
 """
 generate_diagram.py
 -------------------
-Reads diagram.yaml and produces a self-contained diagram.html file.
+Reads diagram.yaml and produces a self-contained index.html file.
 
 Usage:
     pip install pyyaml          # (ruamel also works; only safe_load is used here)
     python generate_diagram.py
-    python generate_diagram.py --input diagram.yaml --output diagram.html
+    python generate_diagram.py --input diagram.yaml --output index.html
 
 This module is also imported by clickhouse_diagram.py, which calls
 generate_html(data) directly so there is a single source of HTML truth.
@@ -773,7 +773,7 @@ render();
 def main():
     parser = argparse.ArgumentParser(description="Generate lineage HTML from YAML")
     parser.add_argument("--input",  default="diagram.yaml", help="Input YAML file")
-    parser.add_argument("--output", default="diagram.html", help="Output HTML file")
+    parser.add_argument("--output", default="index.html", help="Output HTML file")
     args = parser.parse_args()
 
     input_path  = Path(args.input)

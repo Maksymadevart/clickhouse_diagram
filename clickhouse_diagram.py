@@ -15,7 +15,7 @@ WHAT IT DOES (run once a day by Jenkins):
              -> dropped icon cleared (back to 'none'); its layer + links
                 are left exactly as a human set them.
        - materialized views are flagged with is_mview: true (separate badge).
-  3. If (and only if) the YAML changed, regenerates diagram.html.
+  3. If (and only if) the YAML changed, regenerates index.html.
   4. If the YAML changed, commits both files and pushes to GitHub,
      then posts a summary to the MS Teams channel.
   5. On ANY error, posts a warning to Teams and exits non-zero
@@ -91,7 +91,7 @@ PLACEHOLDER = "insert_link_here"
 # the repo files live one level up next to it — adjust if your layout differs)
 SCRIPT_DIR = Path(__file__).resolve().parent
 YAML_PATH = SCRIPT_DIR / "diagram.yaml"
-HTML_PATH = SCRIPT_DIR / "diagram.html"
+HTML_PATH = SCRIPT_DIR / "index.html"
 
 # Git / GitHub
 GIT_REMOTE_BRANCH = "main"
@@ -288,8 +288,8 @@ def run_git(*args) -> str:
 
 
 def has_changes() -> bool:
-    """True if diagram.yaml or diagram.html differ from what's committed."""
-    out = run_git("status", "--porcelain", "diagram.yaml", "diagram.html")
+    """True if diagram.yaml or index.html differ from what's committed."""
+    out = run_git("status", "--porcelain", "diagram.yaml", "index.html")
     return bool(out.strip())
 
 
@@ -308,7 +308,7 @@ def commit_and_push(summary: str) -> None:
 
     run_git("config", "user.name", GIT_COMMIT_NAME)
     run_git("config", "user.email", GIT_COMMIT_EMAIL)
-    run_git("add", "diagram.yaml", "diagram.html")
+    run_git("add", "diagram.yaml", "index.html")
     run_git("commit", "-m", f"chore(lineage): {summary}")
     run_git("push", push_url, f"HEAD:{GIT_REMOTE_BRANCH}")
 

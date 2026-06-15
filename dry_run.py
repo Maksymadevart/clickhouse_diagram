@@ -7,7 +7,7 @@ SAFE, READ-ONLY trial of the ClickHouse lineage sync.
 It reuses the real logic from clickhouse_diagram.py (same query, same engine
 filter, same reconcile rules) but it does NOT:
     - write diagram.yaml
-    - write diagram.html
+    - write index.html
     - commit or push to git
     - send any Teams message
 
@@ -97,7 +97,7 @@ def main():
             print(f"\n      CLEAR dropped flag on {len(reappeared)} reappeared table(s) (layer/links kept):")
             for x in sorted(reappeared):
                 print(f"          ^ {x}")
-        print("\n      It would then regenerate diagram.html, commit + push, and post to Teams.")
+        print("\n      It would then regenerate index.html, commit + push, and post to Teams.")
 
     print("\n" + "=" * 70)
     print("DRY RUN COMPLETE. Nothing was written, committed, or sent.")

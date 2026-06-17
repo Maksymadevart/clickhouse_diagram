@@ -123,7 +123,7 @@ def generate_html(data: dict) -> str:
     --mview-color: #6b4ea0;
     --mview-bd:    rgba(107,78,160,0.40);
     --mview-bg:    rgba(107,78,160,0.10);
-    --lane-gap:    72px;
+    --lane-gap:    144px;
   }}
 
   @media (prefers-color-scheme: dark) {{

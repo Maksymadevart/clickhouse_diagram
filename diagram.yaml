@@ -699,7 +699,7 @@ tables:
     schema: analytics_aggregated
     name: soft_matching222
     layer: review
-    icon: created
+    icon: dropped
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here

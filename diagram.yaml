@@ -480,7 +480,7 @@ tables:
     layer: gold
     icon: clock
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/724729870/soft_matching
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_soft_matching.py
 
   - id: aa_soft_matching_archive_20260126
@@ -579,7 +579,7 @@ tables:
     layer: gold
     icon: clock
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/725188610/kpi_table_client
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_kpi_table_client.py
 
   - id: analytics_aggregated_kpi_table_driver
@@ -588,7 +588,7 @@ tables:
     layer: gold
     icon: clock
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/725778443/kpi_table_driver
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_kpi_table_driver.py
 
   - id: analytics_aggregated_partner_list
@@ -794,6 +794,39 @@ edges:
     to: aa_operations_orders_metrics
     type: multi
     etl_script: analytics_aggregated/order_list_silver.sql
+
+# soft matching table relations
+  - from: a_order_list
+    to: aa_soft_matching
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_matching_log
+    to: aa_soft_matching
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+# kpi_tables relations
+  - from: a_client_list
+    to: analytics_aggregated_kpi_table_client
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_order_list
+    to: analytics_aggregated_kpi_table_client
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_driver_list
+    to: analytics_aggregated_kpi_table_driver
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_order_list
+    to: analytics_aggregated_kpi_table_driver
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
 
 
 # ============================================================

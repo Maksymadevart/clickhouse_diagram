@@ -722,6 +722,16 @@ edges:
     etl_script: analytics_aggregated/order_stats_gold.sql
 
 # intent_list relations
+  - from: a_estimate_log
+    to: aa_estimates_intents_bronze
+    type: single
+    etl_script: analytics_aggregated/intent_list_silver.sql
+
+  - from: a_polygon_list
+    to: aa_estimates_intents_bronze
+    type: single
+    etl_script: analytics_aggregated/intent_list_silver.sql
+
   - from: aa_estimates_intents_bronze
     to: aa_intent_list_silver
     type: single

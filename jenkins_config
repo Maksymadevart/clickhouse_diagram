@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('main') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '8ceb9996-d626-4ddf-ad49-c44afdd6eef1', url: 'https://github.com/DevartSoftware/Mobion-Public.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '6d9eb915-1fe3-476b-8ae2-adc4c271c439', url: 'https://github.com/Maksymadevart/clickhouse_diagram.git']]])
                 withCredentials([
                 string(credentialsId: '7e29b787-1f57-4117-8e45-f7840136915e', variable: 'MS_CLIENT_ID'),
                 string(credentialsId: '7c60ea86-9ef2-42af-8adf-715cb4362f93', variable: 'MS_CLIENT_SECRET'),
@@ -23,9 +23,7 @@ pipeline {
                 string(credentialsId: '14a037c9-9b15-4786-a8a3-4b3ad059f8b2', variable: 'GITHUB_TOKEN'),
                 usernamePassword(credentialsId: 'da998f8b-eab9-4f19-ac3f-e69c1528b88b', passwordVariable: 'CLICKHOUSE_PASSWORD', usernameVariable: 'CLICKHOUSE_USERNAME')
                 ]) {
-                    dir ('.\\Clickhouse_diagram') {
-                        powershell 'python clickhouse_diagram.py'
-                        }
+                    powershell 'python clickhouse_diagram.py'
                 }
             }
         }

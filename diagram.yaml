@@ -694,7 +694,7 @@ tables:
 # ============================================================
 # EDGES — lineage relationships
 # ============================================================
-
+edges:
 # order_list relations
   - from: a_order_list
     to: aa_order_list_silver

@@ -309,7 +309,7 @@ tables:
     layer: silver
     icon: clock
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/724631561/driver_order_stat
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_order_stat.py
 
   - id: aa_driver_order_stat_archive_20251227
@@ -567,10 +567,10 @@ tables:
   - id: analytics_aggregated_driver_activity_live_extra
     schema: analytics_aggregated
     name: driver_activity_live_extra
-    layer: silver
+    layer: gold
     icon: flash
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/725090314/driver_activity_live_extra
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity_live_extra
 
   - id: analytics_aggregated_kpi_table_client
@@ -766,6 +766,12 @@ edges:
   - from: a_matching_log
     to: analytics_aggregated_driver_activity_live_extra
     type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+# driver_order_stat relations
+  - from: a_order_list
+    to: aa_driver_order_stat
+    type: single
     etl_script: analytics_aggregated/order_list_silver.sql
 
 

@@ -327,7 +327,7 @@ tables:
     layer: bronze
     icon: flash
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/724434945/estimates_intents_bronze
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_estimates_intents_bronze.py
 
   - id: aa_history_1y_orders_snapshot_30m
@@ -372,7 +372,7 @@ tables:
     layer: silver
     icon: flash
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/724631553/intent_list_silver
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_intent_list_silver.py
 
   - id: aa_intent_stats_gold
@@ -381,7 +381,7 @@ tables:
     layer: gold
     icon: flash
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/724762625/intent_stats_gold
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_intent_stats_gold.py
 
   - id: aa_operations_client_churn_28d
@@ -435,7 +435,7 @@ tables:
     layer: silver
     icon: flash
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/724860929/order_list_silver
     etl_url: https://gitlab.example.com/etl/analytics_aggregated/order_list_silver.sql
 
   - id: aa_order_stats_gold
@@ -444,7 +444,7 @@ tables:
     layer: gold
     icon: flash
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/724500482/order_stats_gold
     etl_url: https://gitlab.example.com/etl/analytics_aggregated/order_stats_gold.sql
 
   - id: aa_quick_cities_filter

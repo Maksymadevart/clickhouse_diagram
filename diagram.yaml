@@ -749,7 +749,7 @@ edges:
 
   - from: aa_driver_activity_live
     to: analytics_aggregated_driver_activity_live_extra
-    type: multi
+    type: single
     etl_script: analytics_aggregated/order_list_silver.sql
 
   - from: a_polygon_list

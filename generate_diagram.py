@@ -123,7 +123,7 @@ def generate_html(data: dict) -> str:
     --mview-color: #6b4ea0;
     --mview-bd:    rgba(107,78,160,0.40);
     --mview-bg:    rgba(107,78,160,0.10);
-    --lane-gap:    24px;
+    --lane-gap:    72px;
   }}
 
   @media (prefers-color-scheme: dark) {{
@@ -159,6 +159,67 @@ def generate_html(data: dict) -> str:
   }}
 
   h1 {{ font-size: 16px; font-weight: 500; margin-bottom: 14px; }}
+
+  /* ===== Search box ===== */
+  .search-wrap {{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }}
+  .search-box {{
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+  }}
+  .search-input {{
+    width: 100%;
+    font-size: 13px;
+    padding: 8px 12px;
+    border: 0.5px solid var(--border2);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.12s;
+  }}
+  .search-input:focus {{ border-color: var(--hl-bd); }}
+  .search-input::placeholder {{ color: var(--text3); }}
+  .search-results {{
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border: 0.5px solid var(--border2);
+    border-radius: 8px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.14);
+    max-height: 280px;
+    overflow-y: auto;
+    z-index: 500;
+    display: none;
+  }}
+  .search-results.show {{ display: block; }}
+  .search-item {{
+    padding: 7px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }}
+  .search-item:hover, .search-item.active {{ background: var(--bg2); }}
+  .search-item .si-schema {{ font-size: 10px; color: var(--text3); }}
+  .search-item .si-name {{ font-weight: 500; }}
+  .search-empty {{ padding: 9px 12px; font-size: 11px; color: var(--text3); }}
+
+  /* brief flash applied when scrolling to a card with no relations */
+  .tcard.flash-focus {{
+    animation: cardFlash 1.6s ease-out;
+  }}
+  @keyframes cardFlash {{
+    0%   {{ border-color: var(--hl-bd); background: var(--hl-bg); box-shadow: 0 0 0 3px var(--hl-bg); }}
+    100% {{ border-color: var(--border); background: var(--bg);   box-shadow: none; }}
+  }}
 
   .controls {{
     display: flex;
@@ -354,6 +415,15 @@ def generate_html(data: dict) -> str:
 <body>
 
 <h1>ClickHouse Datamart</h1>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <input type="text" class="search-input" id="search-input"
+           placeholder="Search table name…" autocomplete="off"
+           spellcheck="false">
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
 
 <div class="controls">
   <button class="ctrl-btn active" onclick="setSchema('all', this)">All schemas</button>
@@ -761,6 +831,111 @@ window.addEventListener('resize', () => {{
     const center = document.querySelector('.fcard.is-center');
     if (center) drawFocusEdges(relatedSet(center.id.replace('fcard-','')));
   }}
+}});
+
+// ===== Search box =====
+const searchInput   = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+let searchActiveIdx = -1;   // keyboard-highlighted row in the dropdown
+
+function currentSearchMatches() {{
+  const q = searchInput.value.trim().toLowerCase();
+  if (!q) return [];
+  // match on table NAME only, then sort by schema.name alphabetically
+  return TABLES
+    .filter(t => t.name.toLowerCase().includes(q))
+    .sort((a, b) =>
+      (a.schema + '.' + a.name).localeCompare(b.schema + '.' + b.name));
+}}
+
+function renderSearchResults() {{
+  const matches = currentSearchMatches();
+  searchActiveIdx = -1;
+  if (!searchInput.value.trim()) {{
+    searchResults.classList.remove('show');
+    searchResults.innerHTML = '';
+    return;
+  }}
+  if (!matches.length) {{
+    searchResults.innerHTML = '<div class="search-empty">No tables match</div>';
+    searchResults.classList.add('show');
+    return;
+  }}
+  searchResults.innerHTML = matches.map((t, i) => `
+    <div class="search-item" data-id="${{t.id}}" data-idx="${{i}}">
+      <span class="si-schema">${{t.schema}}.</span><span class="si-name">${{t.name}}</span>
+    </div>`).join('');
+  searchResults.classList.add('show');
+  searchResults.querySelectorAll('.search-item').forEach(item => {{
+    item.addEventListener('mousedown', (e) => {{
+      e.preventDefault();   // keep focus until we act
+      selectSearch(item.dataset.id);
+    }});
+  }});
+}}
+
+function selectSearch(id) {{
+  searchResults.classList.remove('show');
+  searchInput.blur();
+  if (hasRelations(id)) {{
+    openFocus(id);            // table has lineage -> open focus overlay
+  }} else {{
+    scrollToCard(id);         // no relations -> scroll to + flash the card
+  }}
+}}
+
+function scrollToCard(id) {{
+  // make sure the card is visible under the current schema filter
+  const t = TABLE_BY_ID[id];
+  if (t && activeSchema !== 'all' && t.schema !== activeSchema) {{
+    activeSchema = 'all';
+    document.querySelectorAll('.ctrl-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.ctrl-btn').classList.add('active');  // first = All schemas
+    render();
+  }}
+  // wait a tick in case render() just rebuilt the cards
+  setTimeout(() => {{
+    const el = document.getElementById('card-' + id);
+    if (!el) return;
+    el.scrollIntoView({{behavior: 'smooth', block: 'center', inline: 'center'}});
+    el.classList.remove('flash-focus');
+    void el.offsetWidth;          // restart the CSS animation
+    el.classList.add('flash-focus');
+  }}, 60);
+}}
+
+searchInput.addEventListener('input', renderSearchResults);
+searchInput.addEventListener('focus', () => {{ if (searchInput.value.trim()) renderSearchResults(); }});
+searchInput.addEventListener('keydown', (e) => {{
+  const items = [...searchResults.querySelectorAll('.search-item')];
+  if (e.key === 'ArrowDown') {{
+    e.preventDefault();
+    searchActiveIdx = Math.min(searchActiveIdx + 1, items.length - 1);
+  }} else if (e.key === 'ArrowUp') {{
+    e.preventDefault();
+    searchActiveIdx = Math.max(searchActiveIdx - 1, 0);
+  }} else if (e.key === 'Enter') {{
+    e.preventDefault();
+    if (searchActiveIdx >= 0 && items[searchActiveIdx]) {{
+      selectSearch(items[searchActiveIdx].dataset.id);
+    }} else if (items.length === 1) {{
+      selectSearch(items[0].dataset.id);   // only one match -> pick it
+    }}
+    return;
+  }} else if (e.key === 'Escape') {{
+    searchResults.classList.remove('show');
+    searchInput.blur();
+    return;
+  }} else {{
+    return;
+  }}
+  items.forEach((it, i) => it.classList.toggle('active', i === searchActiveIdx));
+  if (items[searchActiveIdx]) items[searchActiveIdx].scrollIntoView({{block: 'nearest'}});
+}});
+
+// clicking anywhere outside the search box closes the dropdown
+document.addEventListener('click', (e) => {{
+  if (!e.target.closest('.search-box')) searchResults.classList.remove('show');
 }});
 
 render();

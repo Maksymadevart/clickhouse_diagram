@@ -690,29 +690,15 @@ tables:
     docs_url: insert_link_here
     etl_url: insert_link_here
 
+# ============================================================
+# NEW ROWS BELOW
+# ============================================================
 
+edges:
 # ============================================================
 # EDGES — lineage relationships
 # ============================================================
 
-  - id: analytics_aggregated_soft_matching222
-    schema: analytics_aggregated
-    name: soft_matching222
-    layer: review
-    icon: dropped
-    is_mview: false
-    docs_url: insert_link_here
-    etl_url: insert_link_here
-
-  - id: analytics_aggregated_soft_matching4444
-    schema: analytics_aggregated
-    name: soft_matching4444
-    layer: review
-    icon: created
-    is_mview: false
-    docs_url: insert_link_here
-    etl_url: insert_link_here
-edges:
 # order_list relations
   - from: a_order_list
     to: aa_order_list_silver
@@ -835,8 +821,3 @@ edges:
     type: multi
     etl_script: analytics_aggregated/order_list_silver.sql
 
-
-
-# ============================================================
-# NEW ROWS BELOW
-# ============================================================

@@ -353,7 +353,7 @@ def generate_html(data: dict) -> str:
 </head>
 <body>
 
-<h1>ClickHouse data lineage</h1>
+<h1>ClickHouse Datamart</h1>
 
 <div class="controls">
   <button class="ctrl-btn active" onclick="setSchema('all', this)">All schemas</button>

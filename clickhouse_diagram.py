@@ -15,9 +15,11 @@ WHAT IT DOES (run once a day by Jenkins):
              -> dropped icon cleared (back to 'none'); its layer + links
                 are left exactly as a human set them.
        - materialized views are flagged with is_mview: true (separate badge).
-  3. If (and only if) the YAML changed, regenerates index.html.
-  4. If the YAML changed, commits both files and pushes to GitHub,
-     then posts a summary to the MS Teams channel.
+  3. ALWAYS regenerates index.html from the current YAML (so that human
+     edits to diagram.yaml — moving tables between layers, fixing icons,
+     adding edges or links — also get rebuilt and deployed).
+  4. If diagram.yaml or index.html actually changed on disk, commits both
+     files and pushes to GitHub, then posts a summary to MS Teams.
   5. On ANY error, posts a warning to Teams and exits non-zero
      (so Jenkins also marks the build red).
 
@@ -87,8 +89,10 @@ ICON_DROPPED = "dropped"
 
 PLACEHOLDER = "insert_link_here"
 
-# File paths (script is expected to run from the Automation/ dir;
-# the repo files live one level up next to it — adjust if your layout differs)
+# File paths.
+# All repo files (clickhouse_diagram.py, generate_diagram.py, diagram.yaml,
+# index.html) live in the REPO ROOT, so the YAML and HTML sit right next to
+# this script. index.html MUST be in the repo root for Vercel to deploy it.
 SCRIPT_DIR = Path(__file__).resolve().parent
 YAML_PATH = SCRIPT_DIR / "diagram.yaml"
 HTML_PATH = SCRIPT_DIR / "index.html"
@@ -337,21 +341,22 @@ def main():
     data = load_yaml(YAML_PATH)
     added, dropped, reappeared = reconcile(data, live)
 
-    if not (added or dropped or reappeared):
-        print("No table changes. Nothing to do.")
-        return
+    # Write YAML back ONLY if the scan changed something
+    # (ruamel preserves comments + order of untouched rows).
+    if added or dropped or reappeared:
+        with open(YAML_PATH, "w", encoding="utf-8") as f:
+            yaml.dump(data, f)
 
-    # Write YAML back (ruamel preserves comments + order of untouched rows)
-    with open(YAML_PATH, "w", encoding="utf-8") as f:
-        yaml.dump(data, f)
-
-    # Regenerate HTML from the updated YAML
+    # ALWAYS regenerate HTML from the current YAML. This is the key fix:
+    # human edits to diagram.yaml (layers, icons, links, edges) must also be
+    # rebuilt into index.html, not only ClickHouse-driven table changes.
     html = generate_html(data)
     HTML_PATH.write_text(html, encoding="utf-8")
 
-    # Only commit if files actually differ on disk vs git
+    # Only commit if files actually differ on disk vs git. This covers BOTH
+    # ClickHouse-driven changes AND manual YAML edits made since last run.
     if not has_changes():
-        print("Reconcile reported changes but git sees no diff. Skipping commit.")
+        print("No changes to diagram.yaml or index.html. Nothing to commit.")
         return
 
     # Build the Teams summary
@@ -362,7 +367,12 @@ def main():
         parts.append(f"{len(dropped)} dropped")
     if reappeared:
         parts.append(f"{len(reappeared)} reappeared")
-    summary = ", ".join(parts) + " table(s)"
+    if parts:
+        summary = ", ".join(parts) + " table(s)"
+    else:
+        # No ClickHouse table changes, but the YAML/HTML differ — must be a
+        # human edit to diagram.yaml that we've just rebuilt into index.html.
+        summary = "rebuilt from manual diagram.yaml edits"
 
     commit_and_push(summary)
 
@@ -374,6 +384,9 @@ def main():
         lines.append("🗑️ Dropped (verify, then remove from YAML): " + ", ".join(sorted(dropped)))
     if reappeared:
         lines.append("♻️ Reappeared (dropped flag cleared): " + ", ".join(sorted(reappeared)))
+    if not (added or dropped or reappeared):
+        lines.append("📝 No table changes from ClickHouse; index.html rebuilt to "
+                     "reflect manual diagram.yaml edits.")
     send_teams_message("\n".join(lines))
 
     print(summary)

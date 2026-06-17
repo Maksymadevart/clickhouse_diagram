@@ -291,7 +291,7 @@ tables:
     layer: silver
     icon: flash
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/725090306/driver_activity_live
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity_live.py
 
   - id: aa_driver_activity_with_filters
@@ -567,7 +567,7 @@ tables:
   - id: analytics_aggregated_driver_activity_live_extra
     schema: analytics_aggregated
     name: driver_activity_live_extra
-    layer: bronze
+    layer: silver
     icon: flash
     is_mview: false
     docs_url: insert_link_here
@@ -741,6 +741,33 @@ edges:
     to: aa_intent_stats_gold
     type: single
     etl_script: analytics_aggregated/intent_stats_gold.sql
+
+# driver_activity relations
+  - from: a_driver_activity_log
+    to: aa_driver_activity_live
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: aa_quick_cities_filter
+    to: aa_driver_activity_live
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: aa_driver_activity_live
+    to: analytics_aggregated_driver_activity_live_extra
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_polygon_list
+    to: analytics_aggregated_driver_activity_live_extra
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_matching_log
+    to: analytics_aggregated_driver_activity_live_extra
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
 
 # ============================================================
 # NEW ROWS BELOW

@@ -390,7 +390,7 @@ tables:
     layer: gold
     icon: clock
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/725680129/operations_client_churn_28d
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_operations_client_churn_28d.py
 
   - id: aa_operations_driver_churn_28d
@@ -399,7 +399,7 @@ tables:
     layer: gold
     icon: clock
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/725385225/operations_driver_churn_28d
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_operations_driver_churn_28d.py
 
   - id: aa_operations_orders_metrics
@@ -408,7 +408,7 @@ tables:
     layer: gold
     icon: clock
     is_mview: false
-    docs_url: insert_link_here
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/725483529/operations_orders_metrics
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_operations_orders_metrics.py
 
   - id: aa_order_flow_1m_agg
@@ -772,6 +772,27 @@ edges:
   - from: a_order_list
     to: aa_driver_order_stat
     type: single
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+# operations tables relations
+  - from: a_client_list
+    to: aa_operations_client_churn_28d
+    type: single
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_driver_list
+    to: aa_operations_driver_churn_28d
+    type: single
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_order_list
+    to: aa_operations_orders_metrics
+    type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: a_city_list
+    to: aa_operations_orders_metrics
+    type: multi
     etl_script: analytics_aggregated/order_list_silver.sql
 
 

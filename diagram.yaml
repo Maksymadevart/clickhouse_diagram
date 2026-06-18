@@ -694,6 +694,15 @@ tables:
 # NEW ROWS BELOW
 # ============================================================
 
+
+  - id: analytics_aggregated_soft_matching4444
+    schema: analytics_aggregated
+    name: soft_matching4444
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships

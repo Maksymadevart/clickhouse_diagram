@@ -690,6 +690,15 @@ tables:
     docs_url: insert_link_here
     etl_url: insert_link_here
 
+  - id: analytics_aggregated_cumulative_ltv_client_dashboard
+    schema: analytics_aggregated
+    name: cumulative_ltv_client_dashboard
+    layer: gold
+    icon: clock
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/746651649/cumulative_ltv_client_dashboard
+    etl_url: insert_link_here
+
 # ============================================================
 # NEW ROWS BELOW
 # ============================================================
@@ -698,15 +707,6 @@ tables:
   - id: analytics_aggregated_soft_matching_temp_archive_20260624
     schema: analytics_aggregated
     name: soft_matching_temp_archive_20260624
-    layer: review
-    icon: created
-    is_mview: false
-    docs_url: insert_link_here
-    etl_url: insert_link_here
-
-  - id: analytics_aggregated_cumulative_ltv_client_dashboard
-    schema: analytics_aggregated
-    name: cumulative_ltv_client_dashboard
     layer: review
     icon: created
     is_mview: false

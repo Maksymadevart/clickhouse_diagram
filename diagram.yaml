@@ -712,6 +712,42 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_audience_action
+    schema: mysql_replica
+    name: client_retention_audience_action
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_audience_client
+    schema: mysql_replica
+    name: client_retention_audience_client
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_client_list
+    schema: mysql_replica
+    name: client_retention_client_list
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: mysql_replica_client_retention_condition
+    schema: mysql_replica
+    name: client_retention_condition
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships

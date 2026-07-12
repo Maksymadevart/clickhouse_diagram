@@ -748,6 +748,15 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_dynamic_model_activation
+    schema: analytics_aggregated
+    name: tmp_dynamic_model_activation
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships

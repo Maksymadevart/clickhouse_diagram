@@ -757,6 +757,15 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
+
+  - id: analytics_aggregated_client_cumulative_ltv_cohorts
+    schema: analytics_aggregated
+    name: client_cumulative_ltv_cohorts
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships

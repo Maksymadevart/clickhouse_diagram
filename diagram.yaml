@@ -766,6 +766,24 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
+
+  - id: analytics_partner_list
+    schema: analytics
+    name: partner_list
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_client_retention_cohorts
+    schema: analytics_aggregated
+    name: client_retention_cohorts
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships

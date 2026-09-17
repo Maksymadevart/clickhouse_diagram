@@ -793,6 +793,15 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_order_snapshot_2026
+    schema: analytics_aggregated
+    name: tmp_order_snapshot_2026
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships

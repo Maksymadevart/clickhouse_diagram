@@ -807,6 +807,15 @@ tables:
     schema: analytics_aggregated
     name: tmp_completed_orders_snapshot
     layer: review
+    icon: dropped
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_estimate_list
+    schema: analytics_aggregated
+    name: tmp_estimate_list
+    layer: review
     icon: created
     is_mview: false
     docs_url: insert_link_here

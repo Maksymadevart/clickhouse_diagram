@@ -838,6 +838,42 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
+
+  - id: analytics_aggregated_driver_activity_live_with_filters
+    schema: analytics_aggregated
+    name: driver_activity_live_with_filters
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_fake_matching_episodes
+    schema: analytics_aggregated
+    name: tmp_fake_matching_episodes
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_supply_by_filter_value_hourly
+    schema: analytics_aggregated
+    name: tmp_supply_by_filter_value_hourly
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_supply_total_hourly
+    schema: analytics_aggregated
+    name: tmp_supply_total_hourly
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships

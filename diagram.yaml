@@ -874,6 +874,33 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_demand_by_value_hourly
+    schema: analytics_aggregated
+    name: tmp_demand_by_value_hourly
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_demand_orders
+    schema: analytics_aggregated
+    name: tmp_demand_orders
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_tmp_supply_eligible_hourly
+    schema: analytics_aggregated
+    name: tmp_supply_eligible_hourly
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships

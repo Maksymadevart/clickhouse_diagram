@@ -848,24 +848,6 @@ tables:
     docs_url: insert_link_here
     etl_url: insert_link_here
 
-  - id: analytics_aggregated_research1_estimate_log_flagged
-    schema: analytics_aggregated
-    name: research1_estimate_log_flagged
-    layer: review
-    icon: created
-    is_mview: false
-    docs_url: insert_link_here
-    etl_url: insert_link_here
-
-  - id: analytics_aggregated_research4_examples
-    schema: analytics_aggregated
-    name: research4_examples
-    layer: review
-    icon: created
-    is_mview: false
-    docs_url: insert_link_here
-    etl_url: insert_link_here
-
   - id: analytics_boost_ab_log
     schema: analytics
     name: boost_ab_log

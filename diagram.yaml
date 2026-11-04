@@ -573,6 +573,33 @@ tables:
     docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/725090314/driver_activity_live_extra
     etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity_live_extra
 
+  - id: analytics_aggregated_driver_activity_live_enriched
+    schema: analytics_aggregated
+    name: driver_activity_live_enriched
+    layer: silver
+    icon: flash
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/1089896450/driver_activity_live_enriched
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity_live_enriched.py
+
+  - id: analytics_aggregated_driver_filter_state
+    schema: analytics_aggregated
+    name: driver_filter_state
+    layer: silver
+    icon: clock
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/1090584589/driver_filter_state
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/ch_driver_activity_live_enriched.py
+
+  - id: analytics_aggregated_driver_filters_dashboard
+    schema: analytics_aggregated
+    name: driver_filters_dashboard
+    layer: gold
+    icon: clock
+    is_mview: false
+    docs_url: https://mobion.atlassian.net/wiki/spaces/MM/pages/1092124675/driver_filters_dashboard
+    etl_url: https://git.devart.com/taxi/Analytics/-/blob/master/Automation/driver_filters_dashboard/ch_driver_filters_dashboard.py
+
   - id: analytics_aggregated_kpi_table_client
     schema: analytics_aggregated
     name: kpi_table_client
@@ -919,33 +946,6 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
-
-  - id: analytics_aggregated_driver_activity_live_enriched
-    schema: analytics_aggregated
-    name: driver_activity_live_enriched
-    layer: review
-    icon: created
-    is_mview: false
-    docs_url: insert_link_here
-    etl_url: insert_link_here
-
-  - id: analytics_aggregated_driver_filter_state
-    schema: analytics_aggregated
-    name: driver_filter_state
-    layer: review
-    icon: created
-    is_mview: false
-    docs_url: insert_link_here
-    etl_url: insert_link_here
-
-  - id: analytics_aggregated_driver_filters_dashboard
-    schema: analytics_aggregated
-    name: driver_filters_dashboard
-    layer: review
-    icon: created
-    is_mview: false
-    docs_url: insert_link_here
-    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships
@@ -992,7 +992,67 @@ edges:
   - from: a_driver_activity_log
     to: aa_driver_activity_live
     type: multi
-    etl_script: analytics_aggregated/order_list_silver.sql
+    etl_script: analytics_aggregated
+
+  - from: a_filter_list
+    to: aa_driver_filter_state
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_driver_list
+    to: aa_driver_filter_state
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_driver_activity_log
+    to: aa_driver_activity_live_enriched
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: aa_driver_filter_state
+    to: aa_driver_activity_live_enriched
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_filter_list
+    to: aa_driver_activity_live_enriched
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_driver_list
+    to: aa_driver_activity_live_enriched
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_matching_log
+    to: aa_driver_activity_live_enriched
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_polygon_list
+    to: aa_driver_activity_live_enriched
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: aa_driver_activity_live_enriched
+    to: aa_driver_filters_dashboard
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_driver_list
+    to: aa_driver_filters_dashboard
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_order_list
+    to: aa_driver_filters_dashboard
+    type: multi
+    etl_script: analytics_aggregated
+
+  - from: a_driver_activity_log
+    to: aa_driver_filters_dashboard
+    type: multi
+    etl_script: analytics_aggregated
 
   - from: aa_quick_cities_filter
     to: aa_driver_activity_live
@@ -1012,6 +1072,11 @@ edges:
   - from: a_matching_log
     to: analytics_aggregated_driver_activity_live_extra
     type: multi
+    etl_script: analytics_aggregated/order_list_silver.sql
+
+  - from: aa_driver_activity_live
+    to: analytics_aggregated_driver_activity_live_enriched
+    type: single
     etl_script: analytics_aggregated/order_list_silver.sql
 
 # driver_order_stat relations

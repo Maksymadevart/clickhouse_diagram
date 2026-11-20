@@ -874,6 +874,33 @@ tables:
     is_mview: false
     docs_url: insert_link_here
     etl_url: insert_link_here
+
+  - id: analytics_message_log
+    schema: analytics
+    name: message_log
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_message_status
+    schema: analytics
+    name: message_status
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
+
+  - id: analytics_aggregated_intent_list_new
+    schema: analytics_aggregated
+    name: intent_list_new
+    layer: review
+    icon: created
+    is_mview: false
+    docs_url: insert_link_here
+    etl_url: insert_link_here
 edges:
 # ============================================================
 # EDGES — lineage relationships
